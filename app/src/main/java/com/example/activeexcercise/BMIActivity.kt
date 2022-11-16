@@ -42,7 +42,7 @@ class BMIActivity : AppCompatActivity() {
             if (checkedId == R.id.rbMetricUnits){
                 makeVisibleMetricUnitsView()
             }else{
-
+                makeVisibleUsMetricUnitsView()
             }
         }
 
@@ -68,6 +68,21 @@ class BMIActivity : AppCompatActivity() {
 
     private fun makeVisibleMetricUnitsView(){
         currentVisibleView = METRIC_UNITS_VIEW // Current View is updated here.
+        binding?.tilMetricUnitWeight?.visibility = View.VISIBLE // METRIC Height UNITS VIEW
+        binding?.tilMetricUnitHeight?.visibility = View.VISIBLE // METRIC Weight UNITS VIEW
+        binding?.tilUsMetricUnitWeight?.visibility = View.GONE // Make weight view Gone.
+        binding?.tilMetricUsUnitHeightFeet?.visibility = View.GONE // make height feet view Gone.
+        binding?.tilMetricUsUnitHeightInch?.visibility = View.GONE // make height inch view Gone.
+
+        binding?.etMetricUnitHeight?.text!!.clear() // height value is cleared if it is added.
+        binding?.etMetricUnitWeight?.text!!.clear() // weight value is cleared if it is added.
+
+        binding?.llDisplayBMIResult?.visibility = View.INVISIBLE
+
+    }
+
+    private fun makeVisibleUsMetricUnitsView(){
+        currentVisibleView = US_UNITS_VIEW // Current View is updated here.
         binding?.tilMetricUnitWeight?.visibility = View.INVISIBLE // METRIC Height UNITS VIEW
         binding?.tilMetricUnitHeight?.visibility = View.INVISIBLE // METRIC Weight UNITS VIEW
         binding?.tilUsMetricUnitWeight?.visibility = View.VISIBLE // Make weight view Gone.

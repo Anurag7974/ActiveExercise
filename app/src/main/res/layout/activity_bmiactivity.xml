@@ -93,8 +93,9 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+<!--    Us Metric Unit code-->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_below="@+id/tilMetricUnitWeight"
+        android:layout_below="@+id/rgUnits"
         android:id="@+id/tilUsMetricUnitWeight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -153,7 +154,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/view"
         android:visibility="gone"
         tools:visibility="visible"
