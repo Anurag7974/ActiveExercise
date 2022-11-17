@@ -26,7 +26,7 @@ class BMIActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         setSupportActionBar(binding?.toolbarBmiActivity)
-        if(supportActionBar != null){
+        if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "CALCULATE BMI"
         }
@@ -38,31 +38,17 @@ class BMIActivity : AppCompatActivity() {
         makeVisibleMetricUnitsView()
 
         // This Code is Radio active code there code is important code.
-        binding?.rgUnits?.setOnCheckedChangeListener{ _, checkedId: Int ->
-            if (checkedId == R.id.rbMetricUnits){
+        binding?.rgUnits?.setOnCheckedChangeListener { _, checkedId: Int ->
+            if (checkedId == R.id.rbMetricUnits) {
                 makeVisibleMetricUnitsView()
-            }else{
+            } else {
                 makeVisibleUsMetricUnitsView()
             }
         }
 
         binding?.btnCalculateUnits?.setOnClickListener{
-            if (validateMetricUnits()){
-                val heightValue : Float = binding?.etMetricUnitHeight?.text.toString().toFloat()/100
 
-                val WeightValue : Float = binding?.etMetricUnitWeight?.text.toString().toFloat()
-
-                val bmi = WeightValue / (heightValue * heightValue)
-
-                displayBMIResult(bmi)
-
-                //TODO display BMI results
-            }else{
-                Toast.makeText(this@BMIActivity,
-                    "Please enter valid values",
-                    Toast.LENGTH_SHORT)
-                    .show()
-            }
+            calculateUnits()
         }
     }
 
@@ -142,10 +128,72 @@ class BMIActivity : AppCompatActivity() {
 
         if(binding?.etMetricUnitWeight?.text.toString().isEmpty()){
             isValid = false
-        }else if (binding?.etMetricUnitWeight?.text.toString().isEmpty()){
+        } else if (binding?.etMetricUnitWeight?.text.toString().isEmpty()){
             isValid = false
         }
 
+        return isValid
+    }
+
+    private fun calculateUnits(){
+        if (currentVisibleView == METRIC_UNITS_VIEW){
+            if (validateMetricUnits()){
+                val heightValue : Float = binding?.etMetricUnitHeight?.text.toString().toFloat()/100
+
+                val WeightValue : Float = binding?.etMetricUnitWeight?.text.toString().toFloat()
+
+                val bmi = WeightValue / (heightValue * heightValue)
+
+                displayBMIResult(bmi)
+
+                //TODO display BMI results
+            }else{
+                Toast.makeText(this@BMIActivity,
+                    "Please enter valid values",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }else{
+            if(validateUsUnits()){
+                val usUnitHeightValueFeet: String =
+                    binding?.etMetricUsUnitHeightFeet?.text.toString()
+                val usUnitHeightValueInch: String =
+                    binding?.etMetricUsUnitHeightInch?.text.toString() // Height Inch value enter.
+                val usUnitWeightValue: Float =
+                    binding?.etUsMetricUnitWeight?.text.toString().toFloat() // Weight value entered in Edit Text Component.
+
+                // Here the Height Feet and Inch values are merged and multiplied by 12 for convert
+                val heightValue =
+                    usUnitHeightValueInch.toFloat() + usUnitHeightValueFeet.toFloat() * 12
+
+                val bmi = 703 * (usUnitWeightValue / (heightValue * heightValue))
+
+                displayBMIResult(bmi)
+            }else {
+                Toast.makeText(
+                    this@BMIActivity,
+                    "Please enter valid values",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+        }
+    }
+
+    private fun validateUsUnits():Boolean{
+        var isValid = true
+
+        when{
+            binding?.etUsMetricUnitWeight?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.etMetricUsUnitHeightFeet?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.etMetricUsUnitHeightInch?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+        }
         return isValid
     }
 }
