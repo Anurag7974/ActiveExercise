@@ -58,18 +58,14 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts = TextToSpeech(this,this)
 
 
-//        binding?.toolbarExercise?.setNavigationOnClickListener {
-//            customDialogForBackButton()
-//        }
+        binding?.toolbarExercise?.setNavigationOnClickListener {
+            customDialogForBackButton()
+        }
 
         setupRestView()
         setupExerciseStatusRecyclerView()
     }
 
-    override fun onBackPressed() {
-        customDialogForBackButton()
-//        super.onBackPressed()
-    }
 
     // Instruction allow to agree or not this code for given.
     private fun customDialogForBackButton(){
@@ -85,7 +81,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         dialogBinding.btnNo.setOnClickListener {
             customDialog.dismiss()
         }
-
+         customDialog.show()
     }
 
     private fun setupExerciseStatusRecyclerView(){
