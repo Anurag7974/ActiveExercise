@@ -115,7 +115,7 @@ object Constants {
         val calfRaise = ExerciseModel(
             13,
             "Calf Raise",
-            R.drawable.calf,
+            R.drawable.call,
             false,
             false
         )
